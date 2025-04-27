@@ -22,8 +22,8 @@ jobs:
           script: |
             # Update app di EC2
             if [ ! -d "aws-ecommerce" ]; then
-              git clone https://github.com/ardiansyahmuhammad/ecommerce-product-dev-ardi.git
-
+              git clone https://github.com/ardiansyahmuhammad/aws-ecommerce.git
+            fi
             cd aws-ecommerce
             git pull origin main
             pip3 install -r requirements.txt
