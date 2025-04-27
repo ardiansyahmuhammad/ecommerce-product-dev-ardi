@@ -20,17 +20,26 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
-            # Update app di EC2
+            # Update system and install required packages
+            sudo yum update -y
+            sudo yum install -y git python3-pip
+
+            # Clone repo if not exist
             if [ ! -d "ecommerce-product-dev-ardi" ]; then
-              git clone https://github.com/ardiansyahmuhammad/ecommerce-product-dev-ardi.git
-
+              git clone git@github.com:ardiansyahmuhammad/ecommerce-product-dev-ardi.git
             fi
-            cd ecommerce-product-dev-ardi
-            git pull origin main
-            pip3 install -r requirements.txt
 
-            # Kill app lama kalau ada
+            # Navigate into project directory
+            cd ecommerce-product-dev-ardi
+
+            # Pull latest code
+            git pull origin main
+
+            # Install Python dependencies
+            pip3 install --user -r requirements.txt
+
+            # Kill previous running app if any
             sudo pkill -f "python3 app.py" || true
 
-            # Run app baru di background
-            nohup sudo python3 app.py > app.log 2>&1 &
+            # Run app in background using nohup
+            nohup python3 app.py > app.log 2>&1 &
