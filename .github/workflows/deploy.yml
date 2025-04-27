@@ -21,10 +21,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             # Update app di EC2
-            if [ ! -d "aws-ecommerce" ]; then
-              git clone https://github.com/ardiansyahmuhammad/aws-ecommerce.git
+            if [ ! -d "ecommerce-product-dev-ardi" ]; then
+              git clone https://github.com/ardiansyahmuhammad/ecommerce-product-dev-ardi.git
+
             fi
-            cd aws-ecommerce
+            cd ecommerce-product-dev-ardi
             git pull origin main
             pip3 install -r requirements.txt
 
